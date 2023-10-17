@@ -1,0 +1,16 @@
+[package]
+name = "are_we_touching"
+authors = ["cubidev"]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "A Simple Collision Detection library"
+readme = "README.md"
+homepage = "https://github.com/Cubidev3/Are-We-Touching"
+repository = "https://github.com/Cubidev3/Are-We-Touching"
+keywords = ["collision", "detection", "gamedev", "api"]
+categories = ["api", "game-development"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
