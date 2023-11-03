@@ -1,54 +1,17 @@
-mod gjk;
-mod math;
-mod polygon;
-mod circle;
+extern crate core;
+
+mod dim2;
 
 #[cfg(test)]
-mod tests {
-    use crate::circle::Circle;
-    use crate::gjk::gjk_check;
-    use crate::polygon::ConvexPolygon;
+pub mod dim2_tests {
+    use cubi_vectors::vector2::Vector2;
+    use crate::dim2::convex::convex_shape_contains_point;
+    use crate::dim2::shapes::rectangle::Rectangle;
 
     #[test]
-    fn test_gjk_collision_detection_polygon_polygon_collision() {
-        // Create two convex polygons that intersect
-        let polygon_a = ConvexPolygon::new_polygon(vec![(-1.0, 0.0), (0.0, 1.0), (1.0, 0.0)]);
-        let polygon_b = ConvexPolygon::new_polygon(vec![(0.0, 0.0), (1.0, 0.0), (0.0, 1.0)]);
-
-        // Check for collision
-        assert!(gjk_check(&polygon_a, &polygon_b));
+    pub fn rectangle() {
+        let rect = Rectangle::new(Vector2::xy(3f32, 4f32), Vector2::xy(2f32, 1f32), 0f32);
+        let point = Vector2::xy(4f32, 4f32);
+        assert!(convex_shape_contains_point(&rect, &point))
     }
-
-    #[test]
-    fn test_gjk_collision_detection_polygon_polygon_no_collision() {
-        // Create two convex polygons that do not intersect
-        let polygon_a = ConvexPolygon::new_polygon(vec![(-1.0, 0.0), (0.0, 1.0), (1.0, 0.0)]);
-        let polygon_b = ConvexPolygon::new_polygon(vec![(2.0, 2.0), (3.0, 3.0), (4.0, 2.0)]);
-
-        // Check for no collision
-        assert!(!gjk_check(&polygon_a, &polygon_b));
-    }
-
-    #[test]
-    fn test_gjk_collision_detection_circle_polygon_collision() {
-        // Create a circle and a convex polygon that intersect
-        let circle = Circle::new(1.0, (0.0, 0.0)).unwrap();
-        let polygon = ConvexPolygon::new_polygon(vec![(-1.0, 0.0), (0.0, 1.0), (1.0, 0.0)]);
-
-        // Check for collision
-        assert!(gjk_check(&circle, &polygon));
-    }
-
-    #[test]
-    fn test_gjk_collision_detection_circle_polygon_no_collision() {
-        // Create a circle and a convex polygon that do not intersect
-        let circle = Circle::new(1.0, (0.0, 0.0)).unwrap();
-        let polygon = ConvexPolygon::new_polygon(vec![(2.0, 2.0), (3.0, 3.0), (4.0, 2.0)]);
-
-        // Check for no collision
-        assert!(!gjk_check(&circle, &polygon));
-    }
-
-    // Add more tests as needed to cover various scenarios and edge cases.
 }
-
