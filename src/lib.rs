@@ -1,6 +1,6 @@
 extern crate core;
 
-mod dim2;
+pub mod dim2;
 
 #[cfg(test)]
 pub mod dim2_tests {
