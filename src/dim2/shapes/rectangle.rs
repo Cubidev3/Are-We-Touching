@@ -40,9 +40,16 @@ impl Convex2D for Rectangle2D {
             return None;
         }
 
-        let rotated_direction = direction.rotated_by(-self.rotation);
-        let vertex = self.extents.with_sign_of(&rotated_direction);
+        let rotated_extents = self.rotated_extents();
+        let rotated_flipped_extents = self.extents.flipped_x().rotated_by(self.rotation);
 
-        Some(self.center + vertex.rotated_by(self.rotation))
+        let dot_ext = rotated_extents.dot(&direction);
+        let dot_flip = rotated_flipped_extents.dot(&direction);
+
+        Some(if dot_ext.abs() >= dot_flip.abs() {
+            dot_ext.signum() * rotated_extents
+        } else {
+            dot_flip.signum() * rotated_flipped_extents
+        })
     }
 }

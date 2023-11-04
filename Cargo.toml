@@ -1,7 +1,7 @@
 [package]
 name = "are_we_touching"
 authors = ["cubidev"]
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 license = "MIT"
 description = "A Simple Collision Detection library"
