@@ -1,5 +1,9 @@
 use cubi_vectors::vector2::Vector2;
 
+pub trait ToAABB2D {
+    fn to_aabb(&self) -> AABB2D;
+}
+
 #[derive(Copy, Clone, PartialEq, Debug)]
 pub struct AABB2D {
     center: Vector2,
@@ -23,7 +27,7 @@ impl AABB2D {
         AABB2D { center, extents }
     }
 
-    pub fn collides_with(&self, other: &AABB2D) -> bool {
+    pub fn collides_with(&self, other: AABB2D) -> bool {
         let Vector2 { x: min_x, y: min_y } = self.min_point();
         let Vector2 { x: max_x, y: max_y } = self.max_point();
 
