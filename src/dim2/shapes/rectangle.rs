@@ -40,6 +40,9 @@ impl Convex2D for Rectangle2D {
             return None;
         }
 
-        Some(self.vertices().iter().max_by(|a, b| a.dot(&direction).partial_cmp(&b.dot(&direction)).unwrap()).unwrap().clone())
+        let rotated_direction = direction.rotated_by(-self.rotation);
+        let vertex = self.extents.with_sign_of(&rotated_direction);
+
+        Some(self.center + vertex.rotated_by(self.rotation))
     }
 }
