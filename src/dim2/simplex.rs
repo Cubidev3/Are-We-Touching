@@ -19,9 +19,9 @@ pub enum Simplex2D {
 impl Simplex2D {
     pub fn next(&self, point: Vector2) -> Simplex2D {
         match self {
-            Point{ a: b } => Line { a: point, b: b.clone() },
-            Line { a: b, b: c} => Triangle { a: point, b: b.clone(), c: c.clone() },
-            Triangle { a: b, b: c, c: _ } => Triangle { a: point, b: b.clone(), c: c.clone() }
+            Point{ a: b } => Line { a: point, b: *b },
+            Line { a: b, b: c} => Triangle { a: point, b: *b, c: *c },
+            Triangle { a: b, b: c, c: _ } => Triangle { a: point, b: *b, c: *c }
         }
     }
 }

@@ -17,8 +17,8 @@ impl AABB2D {
                 (x.min(min_x), y.min(min_y), x.max(max_x), y.max(max_y))
             });
 
-        let center = Vector2::xy(min_x + max_x, min_y + max_y) / 2f32;
-        let extents = Vector2::xy(max_x, max_y) - center;
+        let center = Vector2::from_xy(min_x + max_x, min_y + max_y) / 2f32;
+        let extents = Vector2::from_xy(max_x, max_y) - center;
 
         AABB2D { center, extents }
     }
