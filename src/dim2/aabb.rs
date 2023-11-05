@@ -1,4 +1,5 @@
 use cubi_vectors::vector2::Vector2;
+use mint::Vector2 as Vec2;
 
 pub trait ToAABB2D {
     fn to_aabb(&self) -> AABB2D;
@@ -11,13 +12,13 @@ pub struct AABB2D {
 }
 
 impl AABB2D {
-    pub fn new(center: Vector2, extents: Vector2) -> AABB2D {
-        AABB2D { center, extents: extents.abs() }
+    pub fn new(center: Vec2<f32>, extents: Vec2<f32>) -> AABB2D {
+        AABB2D { center: center.into(), extents: Vector2 { x: extents.x.abs(), y: extents.y.abs() } }
     }
 
-    pub fn from_polygon<const SIZE: usize>(vertices: [Vector2; SIZE]) -> AABB2D {
+    pub fn from_polygon<const SIZE: usize>(vertices: [Vec2<f32>; SIZE]) -> AABB2D {
         let (min_x, min_y, max_x, max_y) = vertices.iter()
-            .fold((f32::MAX, f32::MAX, f32::MIN, f32::MIN), |(min_x, min_y, max_x, max_y), Vector2 { x, y }| {
+            .fold((f32::MAX, f32::MAX, f32::MIN, f32::MIN), |(min_x, min_y, max_x, max_y), Vec2 { x, y }| {
                 (x.min(min_x), y.min(min_y), x.max(max_x), y.max(max_y))
             });
 

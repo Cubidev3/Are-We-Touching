@@ -25,8 +25,8 @@ enum EncapsulatorArea {
 
 impl<'a, T: Convex2D> Encapsulator2D<'a, T> {
     pub fn new(shape: &'a T, target: Vector2) -> Option<Encapsulator2D<'a, T>> {
-        let starting_point = match shape.support(Vector2::RIGHT) {
-            Some(point) => point,
+        let starting_point = match shape.support(mint::Vector2 { x: 1.0, y: 0.0 }) {
+            Some(point) => point.into(),
             _ => return None
         };
 
@@ -48,8 +48,8 @@ impl<'a, T: Convex2D> Encapsulator2D<'a, T> {
             return Ok(ContainsTarget);
         }
 
-        let next_point = match self.shape.support(a_to_target) {
-            Some(point) => point,
+        let next_point = match self.shape.support(a_to_target.into()) {
+            Some(point) => point.into(),
             _ => return Err(())
         };
 
@@ -71,8 +71,8 @@ impl<'a, T: Convex2D> Encapsulator2D<'a, T> {
             return Ok(ContainsTarget);
         }
 
-        let next_point = match self.shape.support(direction) {
-            Some(point) => point,
+        let next_point = match self.shape.support(direction.into()) {
+            Some(point) => point.into(),
             _ => return Err(())
         };
 
@@ -93,8 +93,8 @@ impl<'a, T: Convex2D> Encapsulator2D<'a, T> {
 
         match self.area_containing_target(a, ab_normal, ac_normal) {
             AB => {
-                let new_point = match self.shape.support(ab_normal) {
-                    Some(point) => point,
+                let new_point: Vector2 = match self.shape.support(ab_normal.into()) {
+                    Some(point) => point.into(),
                     _ => return Err(())
                 };
 
@@ -106,8 +106,8 @@ impl<'a, T: Convex2D> Encapsulator2D<'a, T> {
                 Ok(Continue)
             },
             AC => {
-                let new_point = match self.shape.support(ac_normal) {
-                    Some(point) => point,
+                let new_point: Vector2 = match self.shape.support(ac_normal.into()) {
+                    Some(point) => point.into(),
                     _ => return Err(())
                 };
 
